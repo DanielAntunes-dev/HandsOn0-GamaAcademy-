@@ -1,4 +1,3 @@
-
 async function criarEvento(idEvento) {
   const inputs = {}
 
@@ -20,8 +19,10 @@ async function criarEvento(idEvento) {
   ).catch(err => console.log(err))
 }
 
+
+
 // LISTAR EVENTOS NA PAGINA INICIAL
-async function listarEventos() {
+async function listarEventos(slice) {
   const response = await fetch(
     'https://xp41-soundgarden-api.herokuapp.com/events'
   ).catch(err => console.log(err))
@@ -30,9 +31,9 @@ async function listarEventos() {
 
   const corpo = document.querySelector('#corpo-eventos')
 
-  data.forEach(function (evento) {
-    corpo.innerHTML += `
-    <article class="evento card p-5 m-3">
+  const eventoGlobal = data.map(function (evento) {
+    const html = `
+    <article class="evento card p-5 m-3 ">
     <h2>${evento.name} - ${evento.scheduled}</h2>
     <h4>${evento.attractions.join(',')}</h4>
     <p>${evento.description}</p>
@@ -43,10 +44,19 @@ async function listarEventos() {
     </button>
   </article>
     `
+    return html
   })
+
+  if (slice) {
+  corpo.innerHTML = eventoGlobal.slice(0,6)
+  }else {
+    corpo.innerHTML = eventoGlobal
+  }
 }
 
-listarEventos()
+
+
+listarEventos(true)
 
 // CRIAR MODAL FORMULARIO
 function criarFormulario(eventoId) {
