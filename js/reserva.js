@@ -48,7 +48,7 @@ async function listarEventos(slice) {
   })
 
   if (slice) {
-  corpo.innerHTML = eventoGlobal.slice(0,6)
+  corpo.innerHTML = eventoGlobal.slice(0,3)
   }else {
     corpo.innerHTML = eventoGlobal
   }
